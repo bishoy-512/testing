@@ -1,0 +1,13 @@
+void *create_user_kern_stack(uint32 *ptr_user_page_directory)
+{
+
+	// TODO: [PROJECT'24.MS2 - #07] [2] FAULT HANDLER I - create_user_kern_stack
+	void *stack_base = kmalloc(KERNEL_STACK_SIZE);
+	if (stack_base == NULL)
+	{
+		panic("user_environment.c::create_user_kern_stack(), Failed to create user kernel stack");
+	}
+	pt_set_page_permissions(ptr_user_page_directory, (uint32)stack_base, 0, PERM_PRESENT);
+
+	return stack_base;
+}
